@@ -99,6 +99,7 @@ parser.add_option("--rpcport",         dest="rpcport",     default=DEFAULT, type
 parser.add_option("--rpcbindaddr",     dest="rpcBindAddr", default="127.0.0.1", type="str",      help="IP Address to bind to for RPC.")
 parser.add_option("--testnet",         dest="testnet",     default=False,     action="store_true", help="Use the testnet protocol")
 parser.add_option("--regtest",         dest="regtest",     default=False,     action="store_true", help="Use the Regression Test Network protocol")
+parser.add_option("--bch",             dest="bch",         default=False,     action="store_true", help="Use the Bitcoin Cash (BCH) Network protocol")
 parser.add_option("--offline",         dest="offline",     default=False,     action="store_true", help="Force Armory to run in offline mode")
 parser.add_option("--nettimeout",      dest="nettimeout",  default=2,         type="int",          help="Timeout for detecting internet connection at startup")
 parser.add_option("--interport",       dest="interport",   default=-1,        type="int",          help="Port for inter-process communication between Armory instances")
@@ -285,6 +286,9 @@ USE_TESTNET = CLI_OPTIONS.testnet
 
 # Use CLI args to determine regtest or not
 USE_REGTEST = CLI_OPTIONS.regtest
+
+# Use CLI args to determine if bch network is selected
+USE_BCH = CLI_OPTIONS.bch
 
 # Set default port for inter-process communication
 if CLI_OPTIONS.interport < 0:

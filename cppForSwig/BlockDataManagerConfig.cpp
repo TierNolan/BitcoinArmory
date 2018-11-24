@@ -99,6 +99,7 @@ void BlockDataManagerConfig::selectNetwork(const string &netname)
       genesisBlockHash_ = READHEX(MAINNET_GENESIS_HASH_HEX);
       genesisTxHash_ = READHEX(MAINNET_GENESIS_TX_HASH_HEX);
       magicBytes_ = READHEX(MAINNET_MAGIC_BYTES);
+      magicBytesNet_ = bchnet_ ? READHEX(BCH_MAINNET_MAGIC_BYTES) : magicBytes_;
       rpcPort_ = portToString(RPC_PORT_MAINNET);
       pubkeyHashPrefix_ = SCRIPT_PREFIX_HASH160;
       scriptHashPrefix_ = SCRIPT_PREFIX_P2SH;
@@ -115,6 +116,7 @@ void BlockDataManagerConfig::selectNetwork(const string &netname)
       genesisBlockHash_ = READHEX(TESTNET_GENESIS_HASH_HEX);
       genesisTxHash_ = READHEX(TESTNET_GENESIS_TX_HASH_HEX);
       magicBytes_ = READHEX(TESTNET_MAGIC_BYTES);
+      magicBytesNet_ = bchnet_ ? READHEX(BCH_TESTNET_MAGIC_BYTES) : magicBytes_;
       rpcPort_ = portToString(RPC_PORT_TESTNET);
       pubkeyHashPrefix_ = SCRIPT_PREFIX_HASH160_TESTNET;
       scriptHashPrefix_ = SCRIPT_PREFIX_P2SH_TESTNET;
@@ -133,6 +135,7 @@ void BlockDataManagerConfig::selectNetwork(const string &netname)
       genesisBlockHash_ = READHEX(REGTEST_GENESIS_HASH_HEX);
       genesisTxHash_ = READHEX(REGTEST_GENESIS_TX_HASH_HEX);
       magicBytes_ = READHEX(REGTEST_MAGIC_BYTES);
+      magicBytesNet_ = bchnet_ ? READHEX(BCH_REGTEST_MAGIC_BYTES) : magicBytes_;
       rpcPort_ = portToString(RPC_PORT_TESTNET);
       pubkeyHashPrefix_ = SCRIPT_PREFIX_HASH160_TESTNET;
       scriptHashPrefix_ = SCRIPT_PREFIX_P2SH_TESTNET;
@@ -422,6 +425,13 @@ void BlockDataManagerConfig::processArgs(const map<string, string>& args,
    {
       btcPort_ = stripQuotes(iter->second);
       customBtcPort_ = true;
+   }
+
+   //BCH network
+   iter = args.find("bch");
+   if (iter != args.end())
+   {
+      bchnet_ = true;
    }
 
    //network type

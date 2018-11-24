@@ -49,12 +49,14 @@ struct BlockDataManagerConfig
 
    bool testnet_ = false;
    bool regtest_ = false;
+   bool bchnet_  = false;
 
    string logFilePath_;
    
    BinaryData genesisBlockHash_;
    BinaryData genesisTxHash_;
    BinaryData magicBytes_;
+   BinaryData magicBytesNet_;
 
    NodeType nodeType_ = Node_BTC;
    string btcPort_;

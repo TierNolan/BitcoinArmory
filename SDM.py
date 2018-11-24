@@ -20,7 +20,7 @@ from armoryengine.ArmoryUtils import BITCOIN_PORT, LOGERROR, hex_to_binary, \
    ARMORY_INFO_SIGN_PUBLICKEY, LOGINFO, BTC_HOME_DIR, LOGDEBUG, OS_MACOSX, \
    OS_WINDOWS, OS_LINUX, SystemSpecs, subprocess_check_output, LOGEXCEPT, \
    FileExistsError, OS_VARIANT, BITCOIN_RPC_PORT, binary_to_base58, isASCII, \
-   USE_TESTNET, USE_REGTEST, GIGABYTE, launchProcess, killProcessTree, killProcess, \
+   USE_TESTNET, USE_REGTEST, USE_BCH, GIGABYTE, launchProcess, killProcessTree, killProcess, \
    LOGWARN, RightNow, HOUR, PyBackgroundThread, touchFile, secondsToHumanTime, \
    bytesToHumanSize, MAGIC_BYTES, deleteBitcoindDBs,\
    MEGABYTE, ARMORY_HOME_DIR, CLI_OPTIONS, AllowAsync, ARMORY_RAM_USAGE,\
@@ -365,11 +365,16 @@ class SatoshiDaemonManager(object):
          pargs.append('--testnet')
       if USE_REGTEST:
          pargs.append('--regtest');
+      if USE_BCH:
+         pargs.append('--bch');
 
       haveSatoshiDir = False
       blocksdir = os.path.join(self.satoshiHome, 'blocks')
       if os.path.exists(blocksdir):   
          pargs.append('--satoshi-datadir="' + blocksdir + '"')
+
+      if (CLI_OPTIONS.satoshiPort):
+         pargs.append('--satoshi-port=' + str(BITCOIN_PORT))
          
       pargs.append('--datadir="' + dataDir + '"')
       pargs.append('--dbdir="' + dbDir + '"')
