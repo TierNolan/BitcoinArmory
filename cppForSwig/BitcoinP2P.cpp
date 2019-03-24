@@ -1127,6 +1127,11 @@ void BitcoinP2P::gotVerack(void)
    {
       //already set or no shared state, move on
    }
+
+   Payload_Ping pping;
+
+   pping.nonce_ = 0x55555555AAAAAAAAL;
+   sendMessage(move(pping));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
